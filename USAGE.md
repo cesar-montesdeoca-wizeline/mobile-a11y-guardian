@@ -75,9 +75,9 @@ You can choose the <span style="color: orange;">branches</span> where the workfl
 ```yaml
 name: Accessibility CI
 
-jobs:
-  run-audit:
-    uses: CesarMontesDeOcaT/mobile-a11y-guardian/.github/workflows/reusable_audit.yml@main
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
     paths:
       - '**.kt'
       - '**.swift'
@@ -86,6 +86,7 @@ jobs:
       - develop
       - feature/**
 ```
+
 
 There is a compact skill for free tier accounts tests, default value is <span style="color: orange;">true</span>, in case you want to use multi skill approach you can change the <span style="color: orange;">use_compact_skill</span> input to <span style="color: orange;">false</span> as below
 

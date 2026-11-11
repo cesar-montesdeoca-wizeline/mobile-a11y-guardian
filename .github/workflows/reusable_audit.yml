@@ -4,15 +4,20 @@ on:
   workflow_call:
     inputs:
       provider:
-        description: 'Proveedor de IA (groq o gemini)'
+        description: 'AI provider (groq or gemini)'
         required: false
         default: 'groq'
         type: string
       model:
-        description: 'Modelo a utilizar'
+        description: 'Model to use'
         required: false
         default: 'qwen/qwen3.8-27b'
         type: string
+      use_compact_skill:
+        description: 'Use compact skill template (true); multi skill approach (false)'
+        required: false
+        default: true
+        type: boolean
     secrets:
       GROQ_API_KEY:
         required: false
@@ -73,6 +78,7 @@ jobs:
           GROQ_MODEL: 'qwen/qwen3.8-27b'
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          A11Y_USE_COMPACT_SKILL: ${{ inputs.use_compact_skill && 'true' || 'false' }}
           PYTHONPATH: .guardian_engine
         run: |
           # Initialize the empty comments array
